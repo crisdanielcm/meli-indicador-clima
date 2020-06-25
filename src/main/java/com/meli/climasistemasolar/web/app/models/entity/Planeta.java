@@ -32,21 +32,13 @@ public class Planeta {
 		// Convierto la velocidad angular en radianes para usarla en la ecuación de 
 		// conversión de coordenadas polares a cartesianas
 		 
-		double velocidadRadianes = 2*Math.PI*this.velocidadGrados*dia;
+		double velocidadRadianes = ((Math.PI*this.velocidadGrados)/180)*this.sentido*dia;
+
+		double x = Math.cos(velocidadRadianes)*this.distancia;
+		double y = Math.sin(velocidadRadianes)*this.distancia;
 		
-		double x = 0;
-		double y = 0;
-		
-		if(1 == sentido) {
-			//Se aplica formula de coordenadas polares a cartesianas en sentido horario
-			x = Math.cos(velocidadRadianes)*this.distancia;
-			y = Math.sin(velocidadRadianes)*this.distancia;
-			
-		} else {
-			//Se aplica formula de coordenadas polares a cartesianas en sentido anti-horario
-			x = Math.sin(velocidadRadianes)*this.distancia;
-			y = Math.cos(velocidadRadianes)*this.distancia;
-		}
+		x = Math.round(x*100d)/100d;
+		y = Math.round(y*100d)/100d;
 		return new Punto(x, y);
 	}
 	

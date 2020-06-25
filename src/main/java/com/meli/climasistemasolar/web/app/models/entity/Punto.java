@@ -16,6 +16,10 @@ public class Punto {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public double calcularDistanciaEntreDosPuntos(Punto punto) {
+		return Math.sqrt(Math.pow((punto.getX() - this.x), 2) + Math.pow((punto.getY() - this.y), 2));
+	}
 
 	public double getX() {
 		return x;
