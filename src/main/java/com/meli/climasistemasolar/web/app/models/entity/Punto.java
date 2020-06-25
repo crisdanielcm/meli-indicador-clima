@@ -17,6 +17,11 @@ public class Punto {
 		this.y = y;
 	}
 	
+	/**
+	 * Metodo que calcula la distancia entre dos puntos.
+	 * @param punto punto de destino necesario para calcula la distancia.
+	 * @return distancia entre dos puntos
+	 */
 	public double calcularDistanciaEntreDosPuntos(Punto punto) {
 		return Math.sqrt(Math.pow((punto.getX() - this.x), 2) + Math.pow((punto.getY() - this.y), 2));
 	}

@@ -17,7 +17,10 @@ public class SistemasolarApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(SistemasolarApplication.class, args);
 	}
-
+	
+	/**
+	 * Se ejecutan los pronosticos al cargar la aplicacion para los proximos 10 anios.
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		CondicionClimaticaImpl condicionClimaticaImpl = new CondicionClimaticaImpl(condicionClimaticaDao);

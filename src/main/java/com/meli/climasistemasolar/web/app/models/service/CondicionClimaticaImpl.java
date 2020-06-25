@@ -31,6 +31,9 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 		this.puntoSol = new Punto(0, 0);
 	}
 
+	/**
+	 * Metodo que genera los pronosticos para 10 anios en adelante para los planetas instanciados.
+	 */
 	public void generarPronosticos() {
 		int totalDias = DIAS_ANIO * ANIOS;
 		for (int i = 0; i < totalDias; i++) {
@@ -40,10 +43,11 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	}
 
 	/**
-	 * 
-	 * @param puntoFerengi
-	 * @param puntoVulcano
-	 * @param puntoBetasoide
+	 * Metodo que se encarga de almacenar en base de datos local, las condiciones climaticas de acuerdo a las condiciones dadas.
+	 * @param puntoFerengi punto cartesiano que representa el planeta Ferengi
+	 * @param puntoVulcano punto cartesiano que representa el planeta Vulcano
+	 * @param puntoBetasoide punto cartesiano que representa el planeta Betasoide
+	 * @param dia dia en que se genera el periodo
 	 */
 	public void generarPeriodos(Punto puntoFerengi, Punto puntoVulcano, Punto puntoBetasoide, int dia) {
 		
@@ -58,7 +62,15 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 			condicionClimaticaDao.save(new CondicionClimatica(dia, "indefinido"));
 		}
 	}
-
+	
+	/**
+	 * Metodo que comprueba el periodo de sequia a partir de la ecuacion de la recta. Se evaluan los puntos para calcular las diferentes
+	 * variables y determinar si pertenecen a la recta que alinea a todos los planetas incluyendo el sol.
+	 * @param puntoFerengi punto cartesiano que representa el planeta Ferengi
+	 * @param puntoVulcano punto cartesiano que representa el planeta Vulcano
+	 * @param puntoBetasoide punto cartesiano que representa el planeta Betasoide
+	 * @return retorna true si se cumplen las condiciones de alineacion, de lo contrario false.
+	 */
 	public boolean generarPeriodoSequia(Punto puntoFerengi, Punto puntoVulcano, Punto puntoBetasoide) {
 		// Se calcula la pendiente de la recta con el punto 1 y 2.
 		double pendiente = this.calcularPendiente(puntoFerengi, puntoBetasoide);
@@ -78,7 +90,15 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Metodo que comprueba el periodo de condiciones optimas de presion a aprtir de la ecuacion de la recta, sin incluir el puntos
+	 * del sol. A partir de la ecuacion se determina si los planetas estan alineados entre si.
+	 * @param puntoFerengi punto cartesiano que representa el planeta Ferengi
+	 * @param puntoVulcano punto cartesiano que representa el planeta Vulcano
+	 * @param puntoBetasoide punto cartesiano que representa el planeta Betasoide
+	 * @return retorna true si se cumplen las condiciones de alineacion, de lo contrario false.
+	 */
 	public boolean generarPeriodoOptimo(Punto puntoFerengi, Punto puntoVulcano, Punto puntoBetasoide) {
 		// Se calcula la pendiente de la recta con el punto 1 y 2.
 		double pendiente = this.calcularPendiente(puntoFerengi, puntoBetasoide);
@@ -100,11 +120,12 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	}
 	
 	/**
-	 * 
-	 * @param puntoFerengi
-	 * @param puntoVulcano
-	 * @param puntoBetasoide
-	 * @return
+	 * Metodo que determina si el punto del sol se encuentra entre los distintos triangulos que generan los planetas al pasar
+	 * de los dias. Se usa formula basada en las distancias y los signos, que determinan el lado en el que se encuentra el punto.
+	 * @param puntoFerengi punto cartesiano que representa el planeta Ferengi
+	 * @param puntoVulcano punto cartesiano que representa el planeta Vulcano
+	 * @param puntoBetasoide punto cartesiano que representa el planeta Betasoide
+	 * @return retorna true si se cumplen las condiciones, de lo contrario false.
 	 */
 	public boolean generarPeriodoLluvia(Punto puntoFerengi, Punto puntoVulcano, Punto puntoBetasoide) {
 		double distancia1 = signo(puntoSol, puntoVulcano, puntoBetasoide);
@@ -136,8 +157,7 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	}
 
 	/**
-	 * Metodo que permite calcular la pendiente de una recta dados dos puntos
-	 * 
+	 * Metodo que permite calcular la pendiente de una recta dados dos puntos.
 	 * @param punto1
 	 * @param punto2
 	 * @return retorna el valor de la pendiente.
@@ -149,7 +169,6 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	/**
 	 * Metodo que permite calcular el corte en el eje Y de una recta dado un punto y
 	 * la pendiente.
-	 * 
 	 * @param punto
 	 * @param pendiente
 	 * @return retorna el valor del corte en el eje Y.
@@ -159,8 +178,7 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	}
 
 	/**
-	 * Metodo que redonde un numero decimal a dos digitos
-	 * 
+	 * Metodo que redondea un numero decimal a dos digitos.
 	 * @param valor
 	 * @return retorna el valor redondeado a dos digitos.
 	 */
@@ -169,7 +187,7 @@ public class CondicionClimaticaImpl implements ICondicionClimaticaService {
 	}
 
 	/**
-	 * 
+	 * Metodo que determina el signo de los lados a partir de la formula aplicada.
 	 * @param puntoFerengi
 	 * @param puntoVulcano
 	 * @param puntoBetasoide

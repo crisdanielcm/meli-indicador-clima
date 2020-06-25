@@ -13,11 +13,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * @author DanielCruz
- *
- */
-
 @Entity
 @Table(name="condiciones_climaticas")
 public class CondicionClimatica implements Serializable{

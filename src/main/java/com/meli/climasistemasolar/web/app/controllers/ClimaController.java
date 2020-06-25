@@ -19,7 +19,7 @@ import com.meli.climasistemasolar.web.app.models.entity.ResponseLluvia;
 import com.meli.climasistemasolar.web.app.models.entity.ResponsePeriodo;
 
 /**
- * @author DanielCruz
+ * @author Cristian Daniel Cruz M
  *
  */
 
@@ -29,7 +29,12 @@ public class ClimaController {
 
 	@Autowired
 	private ICondicionClimaticaDao condicionClimaticaDao;
-
+	
+	/**
+	 * Servicio que retorna la cantidad de periodos de un clima en especifico para el sistema solar.
+	 * @param clima nombre del clima a consultar
+	 * @return JSON {"cantidadPeriodo":cantidad,"clima":"clima"}
+	 */
 	@GetMapping("/cantidad_climatica")
 	public ResponseEntity<Object> contarCantidadPorClima(@RequestParam("clima") String clima) {
 
@@ -41,7 +46,12 @@ public class ClimaController {
 		}
 
 	}
-
+	
+	/**
+	 * Servicio que retorna la cantidad de periodos de lluvia, el dia donde se alcanza el pico maximo y el 
+	 * perimetro maximo
+	 * @return JSON {"cantidadPeriodo":cantidad,"clima":clima,"diaPicoLluvia":dia,"perimetro":perimetro}
+	 */
 	@GetMapping("/pronostico_lluvia")
 	public ResponseEntity<Object> obtenerPronosticoLluvia() {
 		try {
@@ -56,6 +66,11 @@ public class ClimaController {
 		}
 	}
 	
+	/**
+	 * Servicio que retorna el pronostico dado un dia
+	 * @param dia dia del pronostico a consultar
+	 * @return JSON {"dia":590,"clima":"Lluvia","perimetro":4401.486757023873}
+	 */
 	@GetMapping("/pronostico_dia")
 	public ResponseEntity<Object> obtenerPronosticoPorDia(@RequestParam("dia") int dia) {
 		try {
